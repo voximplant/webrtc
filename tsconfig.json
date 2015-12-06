@@ -8,7 +8,9 @@
         "preserveConstEnums": true,
         "sourceMap": true
     },
+    "compileOnSave": false,
     "files": [
+        "./mediastream.d.ts",
         "./webrtc.d.ts",
         "./webrtc.test.ts"
     ]

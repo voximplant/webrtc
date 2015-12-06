@@ -384,17 +384,17 @@ declare class RTCPeerConnection {
     /**
      * The event type of this event handler is negotiationneeded.
      */
-    onnegotiationneeded: (ev: Event) => any;
+    onnegotiationneeded: EventListener;
 
     /**
      * The event type of this event handler is icecandidate.
      */
-    onicecandidate: (ev: Event) => any;
+    onicecandidate: EventListener;
 
     /**
      * The event type of this event handler is icecandidateerror.
      */
-    onicecandidateerror: (ev: Event) => any;
+    onicecandidateerror: EventListener;
 
     /**
      * The event type of this event handler is signalingstatechange.
@@ -402,24 +402,24 @@ declare class RTCPeerConnection {
      * from a call to setLocalDescription, a call to setRemoteDescription, or code.
      * It does not fire for the initial state change into new.
      */
-    onsignalingstatechange: (ev: Event) => any;
+    onsignalingstatechange: EventListener;
 
     /**
      * The event type of this event handler is iceconnectionstatechange.
      * It is called any time the RTCPeerConnection ice connection state changes.
      */
-    oniceconnectionstatechange: (ev: Event) => any;
+    oniceconnectionstatechange: EventListener;
 
     /**
      * The event type of this event handler is icegatheringstatechange.
      * It is called any time the RTCPeerConnection ice gathering state changes.
      */
-    onicegatheringstatechange: (ev: Event) => any;
+    onicegatheringstatechange: EventListener;
 
     /**
      * The event type of this event handler is connectionstatechange.
      */
-    onconnectionstatechange: (ev: Event) => any;
+    onconnectionstatechange: EventListener;
 }
 
 declare enum RTCSignalingState {
@@ -758,7 +758,7 @@ interface RTCPeerConnectionIceErrorEventInit extends EventInit {
     hostCandidate: string;
     url: string;
     errorCode: number;
-    statusText: USVString;
+    statusText: /* USVString */ string;
 }
 
 declare class RTCPeerConnectionIceErrorEvent extends Event {
@@ -786,7 +786,7 @@ declare class RTCPeerConnectionIceErrorEvent extends Event {
      * The errorText attribute is the STUN reason text returned by the STUN
      * or TURN server.
      */
-    /* readonly */ errorText: USVString;
+    /* readonly */ errorText: /* USVString */ string;
 }
 
 declare enum RTCPriorityType {
@@ -868,7 +868,7 @@ interface RTCPeerConnection {
     /**
      * The event type of this event handler is track.
      */
-    ontrack: (ev: Event) => any;
+    ontrack: EventListener;
 }
 
 declare class RTCRtpSender {
@@ -1317,7 +1317,7 @@ interface RTCDtlsTransport {
      * This event handler, of event handler event type statechange,
      * must be fired any time the RTCDtlsTransport state changes.
      */
-    onstatechange: (ev: Event) => any;
+    onstatechange: EventListener;
 }
 
 declare enum RTCDtlsTransportState {
@@ -1399,19 +1399,19 @@ interface RTCIceTransport {
      * This event handler, of event handler event type statechange,
      * must be fired any time the RTCIceTransport state changes.
      */
-    onstatechange: (ev: Event) => any;
+    onstatechange: EventListener;
 
     /**
      * This event handler, of event handler event type gatheringstatechange,
      * must be fired any time the RTCIceTransportgathering state changes.
      */
-    ongatheringstatechange: (ev: Event) => any;
+    ongatheringstatechange: EventListener;
 
     /**
      * This event handler, of event handler event type selectedcandidatepairchange,
      * must be fired any time the RTCIceTransport's selected candidate pair changes.
      */
-    onselectedcandidatepairchange: (ev: Event) => any;
+    onselectedcandidatepairchange: EventListener;
 }
 
 interface RTCIceParameters {
@@ -1516,7 +1516,7 @@ interface RTCPeerConnection {
     /**
      * The event type of this event handler is datachannel.
      */
-    ondatachannel: (ev: Event) => any;
+    ondatachannel: EventListener;
 }
 
 interface RTCDataChannelInit {
@@ -1657,22 +1657,22 @@ interface RTCDataChannel extends EventTarget {
     /**
      * The event type of this event handler is open.
      */
-    onopen: (ev: Event) => any;
+    onopen: EventListener;
 
     /**
      * The event type of this event handler is bufferedamountlow.
      */
-    onbufferedamountlow: (ev: Event) => any;
+    onbufferedamountlow: EventListener;
 
     /**
      * The event type of this event handler is error.
      */
-    onerror: (ev: Event) => any;
+    onerror: EventListener;
 
     /**
      * The event type of this event handler is close.
      */
-    onclose: (ev: Event) => any;
+    onclose: EventListener;
 
     /**
      * Closes the RTCDataChannel. It may be called regardless of whether the
@@ -1683,7 +1683,7 @@ interface RTCDataChannel extends EventTarget {
     /**
      * The event type of this event handler is message.
      */
-    onmessage: (ev: Event) => any;
+    onmessage: EventListener;
 
     /**
      * The binaryType attribute must, on getting, return the value to which
@@ -1697,7 +1697,7 @@ interface RTCDataChannel extends EventTarget {
      * Run the steps described by the send() algorithm with argument
      * type string object.
      */
-    send(data: USVString): void;
+    send(data: /* USVString */ string): void;
 
     /**
      * Run the steps described by the send() algorithm with argument
@@ -1799,7 +1799,7 @@ interface RTCDTMFSender {
      * It returns the character for each tone as it is played out.
      * See RTCDTMFToneChangeEvent for details.
      */
-    ontonechange: (ev: Event) => any;
+    ontonechange: EventListener;
 }
 
 interface RTCDTMFToneChangeEventInit extends EventInit {
@@ -2041,5 +2041,5 @@ interface MediaStreamTrack {
      * This event handler, of type isolationchange, is fired when
      * the value of the isolated attribute changes.
      */
-    onisolationchange: (ev: Event) => any;
+    onisolationchange: EventListener;
 }
