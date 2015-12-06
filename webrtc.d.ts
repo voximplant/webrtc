@@ -12,16 +12,16 @@ interface RTCConfiguration {
     /**
      * Indicates which candidates the ICE agent is allowed to use.
      */
-    iceTransportPolicy?: RTCIceTransportPolicy
+    iceTransportPolicy?: RTCIceTransportPolicy;
     /**
      * Indicates which media-bundling policy to
      * use when gathering ICE candidates.
      */
-    bundlePolicy?: RTCBundlePolicy
+    bundlePolicy?: RTCBundlePolicy;
     /**
      * Indicates which rtcp-mux policy to use when gathering ICE candidates.
      */
-    rtcpMuxPolicy?: RTCRtcpMuxPolicy
+    rtcpMuxPolicy?: RTCRtcpMuxPolicy;
     /**
      * Sets the target peer identity for the RTCPeerConnection.
      * The RTCPeerConnection will not establish a connection to a remote peer
@@ -52,7 +52,7 @@ interface RTCConfiguration {
      * The value for this configuration option cannot change after its value is
      * initially selected. Attempts to change this value must be rejected.
      */
-    certificates?: RTCCertificate[]
+    certificates?: RTCCertificate[];
     /**
      * Size of the prefetched ICE pool as defined in [RTCWEB-JSEP]
      * Section 3.4.4 and 4.1.1.
@@ -60,7 +60,7 @@ interface RTCConfiguration {
     iceCandidatePoolSize?: number;
 }
 
-enum RTCIceCredentialType {
+declare enum RTCIceCredentialType {
     /**
      * The credential is a long-term authentication password,
      * as described in [RFC5389], Section 10.2.
@@ -71,7 +71,7 @@ enum RTCIceCredentialType {
      * [TRAM-TURN-THIRD-PARTY-AUTHZ], Section 6.2.
      */
     "token"
-};
+}
 
 /**
  * The RTCIceServer dictionary is used to describe the STUN and TURN servers
@@ -98,9 +98,9 @@ interface RTCIceServer {
      * authorization.
      */
     credentialType?: RTCIceCredentialType;
-};
+}
 
-enum RTCIceTransportPolicy {
+declare enum RTCIceTransportPolicy {
     /**
      * The ICE agent must not send or receive any packets at this point.
      */
@@ -115,8 +115,7 @@ enum RTCIceTransportPolicy {
      * The ICE agent may use any type of candidates when this value is specified.
      */
     "all"
-};
-
+}
 
 /**
  * Defined in [RTCWEB-JSEP]. The following is a non-normative summary
@@ -127,7 +126,7 @@ enum RTCIceTransportPolicy {
  * If the remote endpoint is BUNDLE-aware, all media tracks and data channels
  * are BUNDLEd onto the same transport.
  */
-enum RTCBundlePolicy {
+declare enum RTCBundlePolicy {
     /**
      * Gather ICE candidates for each media type in use (audio, video, and data).
      * If the remote endpoint is not BUNDLE-aware, negotiate only one audio and
@@ -144,7 +143,7 @@ enum RTCBundlePolicy {
      * BUNDLE-aware, negotiate only one media track.
      */
     "max-bundle"
-};
+}
 
 /**
  * Defined in [RTCWEB-JSEP]. The following is a non-normative summary
@@ -153,7 +152,7 @@ enum RTCBundlePolicy {
  * The RtcpMuxPolicy affects what ICE candidates are gathered to support
  * non-multiplexed RTCP.
  */
-enum RTCRtcpMuxPolicy {
+declare enum RTCRtcpMuxPolicy {
     /**
      * Gather ICE candidates for both RTP and RTCP candidates.
      * If the remote-endpoint is capable of multiplexing RTCP, multiplex RTCP
@@ -166,7 +165,7 @@ enum RTCRtcpMuxPolicy {
      * If the remote endpoint is not capable of rtcp-mux, session negotiation will fail.
      */
     "require"
-};
+}
 
 /**
  * These dictionaries describe the options that can be used to control the
@@ -182,6 +181,16 @@ interface RTCOfferAnswerOptions {
      * it wishes this type of processing enabled or disabled.
      */
     voiceActivityDetection?: boolean;
+};
+
+interface RTCOfferOptions extends RTCOfferAnswerOptions {
+    /**
+     * When the value of this dictionary member is true, the generated
+     * description will have ICE credentials that are different from the
+     * current credentials (as visible in the localDescription attribute's
+     * SDP). Applying the generated description will restart ICE.
+     */
+    iceRestart: boolean;
 };
 
 interface RTCAnswerOptions extends RTCOfferAnswerOptions {
@@ -533,11 +542,11 @@ enum RTCIceConnectionState {
 };
 
 interface RTCPeerConnectionErrorCallback {
-    (error: DOMError): void
+    (error: DOMError): void;
 }
 
 interface RTCSessionDescriptionCallback {
-    (sdp: RTCSessionDescription): void
+    (sdp: RTCSessionDescription): void;
 }
 
 interface RTCSdpError extends DOMError {
@@ -605,63 +614,63 @@ interface RTCIceCandidate {
     /**
      * This carries the candidate-attribute as defined in section 15.1 of [ICE].
      */
-    candidate: string
+    candidate: string;
     /**
      * If present, this contains the identifier of the "media stream identification"
      * as defined in [RFC5888] for the media component this candidate is associated
      * with.
      */
-    sdpMid?: string
+    sdpMid?: string;
     /**
      * This indicates the index (starting at zero) of the media description
      * in the SDP this candidate is associated with.
      */
-    sdpMLineIndex?: number
+    sdpMLineIndex?: number;
     /**
      * A unique identifier that allows ICE to correlate candidates that appear
      * on multiple RTCIceTransports.
      */
-    foundation?: string
+    foundation?: string;
     /**
      * The assigned priority of the candidate. This is automatically populated
      * by the browser.
      */
-    priority?: number
+    priority?: number;
     /**
      * The IP address of the candidate.
      */
-    ip?: string
+    ip?: string;
     /**
      * The protocol of the candidate (udp/tcp).
      */
-    protocol?: RTCIceProtocol
+    protocol?: RTCIceProtocol;
     /**
      * The port of the candidate.
      */
-    port?: number
+    port?: number;
     /**
      * The type of candidate.
      */
-    type?: RTCIceCandidateType
+    type?: RTCIceCandidateType;
     /**
      * If protocol is tcp, tcpType represents the type of TCP candidate.
      * Otherwise, tcpType is not present in the dictionary.
      */
-    tcpType?: RTCIceTcpCandidateType
+    tcpType?: RTCIceTcpCandidateType;
     /**
      * For a candidate that is derived from another, such as a relay or reflexive
      * candidate, the relatedAddress is the IP address of the candidate that it
      * is derived from. For host candidates, the relatedAddress is not present
      * in the dictionary.
      */
-    relatedAddress?: string
+    relatedAddress?: string;
     /**
      * For a candidate that is derived from another, such as a relay or reflexive
      * candidate, the relatedPort is the port of the candidate that it is
      * derived from. For host candidates, the relatedPort is not present in
      * the dictionary.
      */
-    relatedPort?: number
+    relatedPort?: number;
 }
 
 /**
@@ -745,15 +754,15 @@ class RTCPeerConnectionIceEvent extends Event {
     /* readonly */ url?: string;
 };
 
-interface RTCPeerConnectionIceErrorEventInit : EventInit {
-     hostCandidate: string
-     url: string
-     errorCode: number
-     statusText: USVString
+interface RTCPeerConnectionIceErrorEventInit extends EventInit {
+    hostCandidate: string;
+    url: string;
+    errorCode: number;
+    statusText: USVString;
 };
 
-class RTCPeerConnectionIceErrorEvent : Event {
-    constructor(string: type, eventInitDict: RTCPeerConnectionIceErrorEventInit);
+class RTCPeerConnectionIceErrorEvent extends Event {
+    constructor(type: string, eventInitDict: RTCPeerConnectionIceErrorEventInit);
 
     /**
      * The hostCandidate attribute is the local IP address and port used to
@@ -807,7 +816,7 @@ interface RTCCertificate {
      * considered invalid by the browser. After this time, attempts to construct
      * an RTCPeerConnection using this certificate fail.
      */
-    expires: DOMTimeStamp;
+    expires: number;
 };
 
 interface RTCPeerConnection {
@@ -840,7 +849,7 @@ interface RTCPeerConnection {
      * it is contained in the specified MediaStreams.
      */
 
-    addTrack(track: MediaStreamTrack , ...streams: MediaStream[]): RTCRtpSender;
+    addTrack(track: MediaStreamTrack, ...streams: MediaStream[]): RTCRtpSender;
 
     /**
      * Stops sending media from sender. The RTCRtpSender will still appear in
@@ -952,44 +961,44 @@ interface RTCRtpEncodingParameters {
     /**
      * The SSRC of the RTP source stream of this encoding (non-RTX, non-FEC RTP stream). Read-only parameter.
      */
-     ssrc: number;
+    ssrc: number;
 
-     /**
-      * The parameters used for RTX, or unset if RTX is not being used.
-      */
-     rtx: RTCRtxParameters;
+    /**
+     * The parameters used for RTX, or unset if RTX is not being used.
+     */
+    rtx: RTCRtxParameters;
 
-     /**
-      * The parameters used for FEC, or unset if FEC is not being used.
-      */
-     fec: RTCFecParameters;
+    /**
+     * The parameters used for FEC, or unset if FEC is not being used.
+     */
+    fec: RTCFecParameters;
 
-     /**
-      * Indicates that this encoding is actively being sent. Setting it to false
-      * causes this encoding to no longer be sent. Setting it to true causes
-      * this encoding to be sent.
-      */
-     active: boolean;
+    /**
+     * Indicates that this encoding is actively being sent. Setting it to false
+     * causes this encoding to no longer be sent. Setting it to true causes
+     * this encoding to be sent.
+     */
+    active: boolean;
 
-     /**
-      * Indicates the priority of this encoding. It is specified in [RTCWEB-TRANSPORT], Section 4.
-      */
-     priority: RTCPriorityType;
+    /**
+     * Indicates the priority of this encoding. It is specified in [RTCWEB-TRANSPORT], Section 4.
+     */
+    priority: RTCPriorityType;
 
-     /**
-      * Indicates the maximum bitrate that can be used to send this encoding.
-      * The encoding may also be further constrained by other bandwidth limits
-      * (such as per-transport or per-session limits) below the maximum
-      * specified here.
-      */
-     maxBitrate: number;
+    /**
+     * Indicates the maximum bitrate that can be used to send this encoding.
+     * The encoding may also be further constrained by other bandwidth limits
+     * (such as per-transport or per-session limits) below the maximum
+     * specified here.
+     */
+    maxBitrate: number;
 
-     /**
-      * When bandwidth is constrained and the RtpSender needs to choose
-      * between degrading resolution or degrading framerate,
-      * degradationPreference indicates which is prefered.
-      */
-     degradationPreference: RTCDegradationPreference;
+    /**
+     * When bandwidth is constrained and the RtpSender needs to choose
+     * between degrading resolution or degrading framerate,
+     * degradationPreference indicates which is prefered.
+     */
+    degradationPreference: RTCDegradationPreference;
 };
 
 enum RTCDegradationPreference {
@@ -1055,28 +1064,28 @@ interface RTCRtpCodecParameters {
      * RTCRtpParameters.encodings[0].payloadType to control which codec
      * should be used to send a given encoding.
      */
-     payloadType: number;
+    payloadType: number;
 
-     /**
-      * The codec MIME type. Valid types are listed in [IANA-RTP-2].
-      */
-     mimeType: string;
+    /**
+     * The codec MIME type. Valid types are listed in [IANA-RTP-2].
+     */
+    mimeType: string;
 
-     /**
-      * The codec clock rate expressed in Hertz.
-      */
-     clockRate: number;
+    /**
+     * The codec clock rate expressed in Hertz.
+     */
+    clockRate: number;
 
-     /**
-      * The number of channels (mono=1, stereo=2).
-      */
-     channels: number;
+    /**
+     * The number of channels (mono=1, stereo=2).
+     */
+    channels: number;
 
-     /**
-      * The a=fmtp line in the SDP corresponding to the codec,
-      * as defined by [RTCWEB-JSEP].
-      */
-     sdpFmtpLine: string;
+    /**
+     * The a=fmtp line in the SDP corresponding to the codec,
+     * as defined by [RTCWEB-JSEP].
+     */
+    sdpFmtpLine: string;
 };
 
 interface RTCRtpCapabilities {
@@ -1105,7 +1114,7 @@ interface RTCRtpHeaderExtensionCapability {
     uri: string;
 };
 
-interface RTCRtpReceiver {
+class RTCRtpReceiver {
     /**
      * The RTCRtpReceiver.transport attribute is the transport over which
      * media for RTCRtpReceiver.track is received in the form of RTP packets.
@@ -1207,23 +1216,23 @@ interface RTCRtpTransceiverInit {
      * RTP and will not send RTP (the direction of the media description
      * generated by createOffer will be recvonly or inactive).
      */
-     send: boolean;
+    send: boolean;
 
-     /**
-      * If true, indicates that the RTCRtpTransceiver's RTCRtpReceiver
-      * will offer to receive RTP and receive RTP if the remote peer accepts.
-      * If false, indicates that the RTCRtpReceiver will not offer to receive
-      * RTP and will not receive RTP (the direction of the media description
-      * generated by createOffer will be sendonly or inactive).
-      */
-     receive: boolean;
+    /**
+     * If true, indicates that the RTCRtpTransceiver's RTCRtpReceiver
+     * will offer to receive RTP and receive RTP if the remote peer accepts.
+     * If false, indicates that the RTCRtpReceiver will not offer to receive
+     * RTP and will not receive RTP (the direction of the media description
+     * generated by createOffer will be sendonly or inactive).
+     */
+    receive: boolean;
 
-     /**
-      * When the remote PeerConnection's ontrack event fires corresponding
-      * to the RTCRtpReceiver being added, these are the streams that will
-      * be put in the event.
-      */
-     streams: MediaStream[];
+    /**
+     * When the remote PeerConnection's ontrack event fires corresponding
+     * to the RTCRtpReceiver being added, these are the streams that will
+     * be put in the event.
+     */
+    streams: MediaStream[];
 };
 
 interface RTCRtpTransceiver {
@@ -1366,7 +1375,7 @@ interface RTCIceTransport {
      * An array containing the remote ICE candiates received by this
      * RTCIceTransport via addIceCandidate()
      */
-    getRemoteCandidates(): RTCIceCandidate[]
+    getRemoteCandidates(): RTCIceCandidate[];
 
     /**
      * Returns the selected candidate pair on which packets are sent,
@@ -1410,11 +1419,11 @@ interface RTCIceParameters {
      * The ICE username fragment as defined in [ICE], Section 7.1.2.3.
      * @type {string}
      */
-     usernameFragment: string;
-     /**
-      * The ICE password as defined in [ICE], Section 7.1.2.3.
-      */
-     password: string;
+    usernameFragment: string;
+    /**
+     * The ICE password as defined in [ICE], Section 7.1.2.3.
+     */
+    password: string;
 };
 
 interface RTCIceCandidatePair {
@@ -1469,9 +1478,9 @@ interface RTCSctpTransport {
 };
 
 interface RTCTrackEventInit extends EventInit {
-     receiver: RTCRtpReceiver;
-     track: MediaStreamTrack;
-     streams: MediaStream[];
+    receiver: RTCRtpReceiver;
+    track: MediaStreamTrack;
+    streams: MediaStream[];
 };
 
 class RTCTrackEvent extends Event {
@@ -1516,21 +1525,21 @@ interface RTCDataChannelInit {
      * If set to false, data is allowed to be delivered out of order.
      * The default value of true, guarantees that data will be delivered in order.
      */
-    ordered: boolean
+    ordered: boolean;
 
     /**
      * Limits the time during which the channel will transmit or retransmit
      * data if not acknowledged. This value may be clamped if it exceeds the
      * maximum value supported by the user agent.
      */
-    maxPacketLifeTime: number
+    maxPacketLifeTime: number;
 
     /**
      * Limits the number of times a channel will retransmit data if not
      * successfully delivered. This value may be clamped if it exceeds
      * the maximum value supported by the user agent.
      */
-    maxRetransmits: number
+    maxRetransmits: number;
 
     /**
      * Subprotocol name used for this channel.
@@ -1716,7 +1725,321 @@ enum RTCDataChannelState {
      * createDataChannel().
      */
     "connecting",
+    /**
+     * The underlying data transport is established and communication is
+     * possible. This is the initial state of a RTCDataChannel object
+     * dispatched as a part of a RTCDataChannelEvent.
+     */
     "open",
+    /**
+     * The procedure to close down the underlying data transport has started.
+     */
     "closing",
+    /**
+     * The underlying data transport has been closed or could not be established.
+     */
     "closed"
+};
+
+interface RTCDataChannelEventInit extends EventInit {
+    channel: RTCDataChannel;
+};
+
+class RTCDataChannelEvent extends Event {
+    constructor(type: string, eventInitDict: RTCDataChannelEventInit);
+
+    /**
+     * The channel attribute represents the RTCDataChannel object
+     * associated with the event.
+     */
+    channel: RTCDataChannel;
+};
+
+interface RTCRtpSender {
+    /**
+     * The dtmf attribute returns a RTCDTMFSender which can be used to send DTMF.
+     * A null value indicates that this RTCRtpSender cannot send DTMF.
+     */
+    dtmf?: RTCDTMFSender;
+};
+
+interface RTCDTMFSender {
+    /**
+     * An RTCDTMFSender object's insertDTMF() method is used to send DTMF tones.
+     */
+    insertDTMF(tones: string,
+               duration ?: number,
+               interToneGap ?: number): void;
+
+    /**
+     * The toneBuffer attribute must return a list of the tones remaining
+     * to be played out. For the syntax, content, and interpretation of
+     * this list, see insertDTMF.
+     */
+    /* readonly */ toneBuffer: string;
+
+    /**
+     * The duration attribute must return the current tone duration value.
+     * This value will be the value last set via the insertDTMF() method,
+     * or the default value of 100 ms if insertDTMF() was called without
+     * specifying the duration.
+     */
+    /* readonly */ duration: number;
+
+    /**
+     * The interToneGap attribute must return the current value of the
+     * between-tone gap. This value will be the value last set via the
+     * insertDTMF() method, or the default value of 70 ms if insertDTMF()
+     * was called without specifying the interToneGap.
+     */
+    /* readonly */ interToneGap: number;
+
+/**
+ * The event type of this event handler is tonechange.
+ * It returns the character for each tone as it is played out.
+ * See RTCDTMFToneChangeEvent for details.
+ */
+ontonechange: EventHandler;
+};
+
+interface RTCDTMFToneChangeEventInit extends EventInit {
+    tone: string;
+};
+
+class RTCDTMFToneChangeEvent extends Event {
+    constructor(type: string, eventInitDict: RTCDTMFToneChangeEventInit)
+
+    /**
+     * The tone attribute contains the character for the tone that has
+     * just begun playout (see insertDTMF() ). If the value is the empty string,
+     * it indicates that the previous tone has completed playback.
+     */
+    /* readonly */ tone: string;
+};
+
+interface RTCPeerConnection {
+    /**
+     * Gathers stats for the given selector and reports the result asynchronously.
+     */
+    getStats(selector?: MediaStreamTrack): Promise<RTCStatsReport>;
+};
+
+interface RTCStatsCallback {
+    (report: RTCStatsReport): void;
+}
+
+interface RTCStatsReport {
+    [key: string]: any;
+};
+
+interface RTCStats {
+    /**
+     * The timestamp, of type DOMHighResTimeStamp [HIGHRES-TIME],
+     * associated with this object. The time is relative to the UNIX
+     * epoch (Jan 1, 1970, UTC).
+     */
+    timestamp: DOMHighResTimeStamp;
+
+    /**
+     * The type of this object.
+     *
+     * The type attribute must be initialized to the name of the most
+     * specific type this RTCStats dictionary represents.
+     */
+    type: RTCStatsType;
+
+    /**
+     * A unique id that is associated with the object that was inspected to
+     * produce this RTCStats object. Two RTCStats objects, extracted from
+     * two different RTCStatsReport objects, must have the same id if they
+     * were produced by inspecting the same underlying object. User agents
+     * are free to pick any format for the id as long as it meets the
+     * requirements above.
+     */
+    id: string;
+};
+
+enum RTCStatsType {
+    /**
+     * Inbound RTP.
+     */
+    "inboundrtp",
+    /**
+     * Outbound RTP.
+     */
+    "outboundrtp"
+};
+
+interface RTCRTPStreamStats extends RTCStats {
+    /**
+     * ...
+     */
+    ssrc: string;
+
+    /**
+     * The remoteId can be used to look up the corresponding RTCStats object
+     * that represents stats reported by the other peer.
+     */
+    remoteId: string;
+};
+
+interface RTCInboundRTPStreamStats extends RTCRTPStreamStats {
+    packetsReceived: number;
+    bytesReceived: number;
+};
+
+interface RTCOutboundRTPStreamStats extends RTCRTPStreamStats {
+    packetsSent: number;
+    bytesSent: number;
+};
+
+interface RTCIdentityProviderGlobalScope extends WorkerGlobalScope {
+    /**
+     * This object is used by the IdP to register an RTCIdentityProvider instance
+     * with the browser.
+     */
+    /* readonly */ rtcIdentityProvider: RTCIdentityProviderRegistrar;
+};
+
+interface RTCIdentityProviderRegistrar {
+    /**
+     * This method is invoked by the IdP when its script is first executed.
+     * This registers an instance of RTCIdentityProvider with the user agent.
+     */
+    register(idp: RTCIdentityProvider): void;
+};
+
+interface RTCIdentityProvider {
+    /**
+     * A user agent invokes this method on the IdP to request the
+     * generation of an identity assertion.
+     */
+    generateAssertion(contents: string,
+        origin: string,
+        usernameHint: string): Promise<RTCIdentityAssertionResult>;
+
+    /**
+     * A user agent invokes this method on the IdP to request the
+     * validation of an identity assertion.
+     */
+    validateAssertion(assertion: string,
+        origin: string): Promise<RTCIdentityValidationResult>;
+};
+
+interface RTCIdentityAssertionResult {
+    /**
+     * An IdP provides these details to identify the IdP that validates
+     * the identity assertion. This struct contains the same information
+     * that is provided to setIdentityProvider.
+     */
+    idp: RTCIdentityProviderDetails;
+
+    /**
+     * An identity assertion. This is an opaque string that must contain
+     * all information necessary to assert identity. This value is consumed
+     * by the validating IdP.
+     */
+    assertion: string;
+};
+
+interface RTCIdentityProviderDetails {
+    /**
+     * The domain name of the IdP that validated the associated identity assertion.
+     */
+    domain: string;
+
+    /**
+     * The protocol parameter used for the IdP.
+     */
+    protocol?: string;
+};
+
+interface RTCIdentityValidationResult {
+    /**
+     * The validated identity of the peer.
+     */
+    identity: string;
+
+    /**
+     * The payload of the identity assertion. An IdP that validates an identity
+     * assertion must return the same string that was provided to the original
+     * IdP that generated the assertion.
+     */
+    contents: string;
+};
+
+interface RTCPeerConnection {
+    /**
+     * Sets the identity provider to be used for a given RTCPeerConnection
+     * object. Applications need not make this call; if the browser
+     * is already configured for an IdP, then that configured IdP might
+     * be used to get an assertion.
+     */
+    setIdentityProvider(provider: string,
+        protocol?: string,
+        usernameHint?: string): void;
+
+    /**
+     * Initiates the process of obtaining an identity assertion.
+     * Applications need not make this call. It is merely intended to
+     * allow them to start the process of obtaining identity assertions
+     * before a call is initiated. If an identity is needed, either
+     * because the browser has been configured with a default identity
+     * provider or because the setIdentityProvider() method was called,
+     * then an identity will be automatically requested when an offer or
+     * answer is created.
+     */
+    getIdentityAssertion(): Promise<string>;
+
+    /**
+     * A promise that resolves with the identity of the peer if
+     * the identity is successfully validated.
+     */
+    /* readonly */ peerIdentity: Promise<RTCIdentityAssertion>;
+
+    /**
+     * The URL that an application can navigate to so that the user can
+     * login to the IdP, as described in 9.3.1 User Login Procedure.
+     */
+    /* readonly */ idpLoginUrl: string;
+};
+
+class RTCIdentityAssertion {
+    constructor(idp: string, name: string);
+
+    /**
+     * The domain name of the identity provider that validated this identity.
+     */
+    idp: string;
+
+    /**
+     * An RFC5322-conformant [RFC5322] representation of the verified peer
+     * identity. This identity will have been verified via the procedures
+     * described in [RTCWEB-SECURITY-ARCH].
+     */
+    name: string;
+};
+
+interface MediaStreamConstraints {
+    /**
+     * If set, peerIdentity isolates media from the application.
+     * Media can only be sent to the identified peer.
+     */
+    peerIdentity: string;
+};
+
+interface MediaStreamTrack {
+    /**
+     * A MediaStreamTrack is isolated (and the corresponding isolated
+     * attribute set to true) when content is inaccessible to the
+     * owning document. This occurs as a result of setting the peerIdentity
+     * option. A track is also isolated if it comes from a cross origin source.
+     */
+    /* readonly */ isolated: boolean;
+
+    /**
+     * This event handler, of type isolationchange, is fired when
+     * the value of the isolated attribute changes.
+     */
+    onisolationchange: EventHandler;
 };
