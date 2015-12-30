@@ -22,13 +22,13 @@ interface MediaStreamTrack {
     getSettings(): MediaSourceSettings;
     getCapabilities(): MediaTrackCapabilities;
 
-    applyConstraints(constraints: Dictionary): void;
+    applyConstraints(constraints: MediaTrackConstraints, successCallback?: Function, errorCallback?: Function): void;
 
     onoverconstrained: EventListener;
 
     // EventTarget interface
     addEventListener(
-        type: stirng,
+        type: string,
         listener: EventListener,
         useCapture?: boolean): void;
 
@@ -40,8 +40,51 @@ interface MediaStreamTrack {
     dispatchEvent(event: Event): boolean;
 }
 
-interface MediaTrackConstraint {
+declare enum MediaStreamTrackState {
+    live,
+    ended
+}
 
+interface MediaTrackCapabilities {
+    width?: number | any;
+    height?: number | any;
+    aspectRatio?: number;
+    frameRate?: number;
+    facingMode?: string;
+    volume?: number;
+    sampleRate?: number;
+    sampleSize?: number;
+    echoCancellation?: boolean;
+    deviceId?: string;
+    groupId?: string;
+}
+
+interface MediaSourceSettings {
+    width?: number | any;
+    height?: number | any;
+    aspectRatio?: number;
+    frameRate?: number;
+    facingMode?: string;
+    volume?: number;
+    sampleRate?: number;
+    sampleSize?: number;
+    echoCancellation?: boolean;
+    deviceId?: string;
+    groupId?: string;
+}
+
+interface MediaTrackConstraint {
+    width?: number | any;
+    height?: number | any;
+    aspectRatio?: number;
+    frameRate?: number;
+    facingMode?: string;
+    volume?: number;
+    sampleRate?: number;
+    sampleSize?: number;
+    echoCancellation?: boolean;
+    deviceId?: string;
+    groupId?: string;
 }
 
 interface MediaTrackConstraints {

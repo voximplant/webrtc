@@ -842,7 +842,7 @@ interface RTCPeerConnection {
      * Returns a sequence of RTCRtpTransceiver objects representing the RTP
      * transeceivers that are currently attached to this RTCPeerConnection object.
      */
-    getTransceivers(): RTCRtpTransceivers[];
+    getTransceivers(): RTCRtpTransceiver[];
 
     /**
      * Adds a new track to the RTCPeerConnection, and indicates that
